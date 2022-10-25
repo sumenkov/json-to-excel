@@ -10,6 +10,7 @@ import ru.sumenkov.jsontoexcel.service.WriteExcel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,18 +36,22 @@ public class WriteExcelImpl implements WriteExcel {
     }
 
     private void fillWorksheet(WritableSheet sheet, List<Object> data) throws WriteException {
-        String[] heads = new String[]{"DT1", "PTP_ID", "PTP_NAME", "TARIF", "PRTYPE", "SUMM", "CNT", "QCNT"};
+        String[] heads = new String[]{"DT1", "PTP_ID", "PTP_NAME", "TARIF", "ROUTE", "PRTYPE", "SUMM", "CNT", "QCNT"};
         for (int i = 0; i < heads.length; i++) {
             // label: номер столбца, номер строки, содержимое
             Label label = new Label(i, 0, heads[i]);
             sheet.addCell(label);
         }
-        for (int j = 1; j < data.size(); j++) {
+        int num = 0;
+        for (int j = 0; j < data.size(); j++) {
+            System.out.println(num++);
             String[] rowObjects = (String[]) data.get(j);
+            System.out.println(Arrays.toString(rowObjects));
             for (int k = 0; k < rowObjects.length; k++) {
                 String dataString = rowObjects[k] == null ? "" : rowObjects[k];
+                System.out.println(dataString);
                 // label: номер столбца, номер строки, содержимое
-                Label label = new Label(k, j, dataString);
+                Label label = new Label(k, j + 1, dataString);
                 sheet.addCell(label);
             }
         }
