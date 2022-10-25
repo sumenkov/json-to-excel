@@ -24,6 +24,7 @@ public class JsonMapperImpl implements JsonMapper {
                         for (String route: allRoute.keySet()) {
                             JSONObject allPrType = allRoute.getJSONObject(route);
                             for (String prType: allPrType.keySet()) {
+                                JSONObject etc = allPrType.getJSONObject(prType);
                                 String[] list = new String[9];
                                 try {
                                     list[0] = new SimpleDateFormat("dd.MM.yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(day));
@@ -35,11 +36,9 @@ public class JsonMapperImpl implements JsonMapper {
                                 list[3] = tarif;
                                 list[4] = route;
                                 list[5] = prType;
-                                list[6] = "";
-                                list[7] = "";
-                                list[8] = "";
-//                                System.out.println(Arrays.toString(list));
-
+                                list[6] = etc.get("summ").toString();
+                                list[7] = etc.get("cnt").toString();
+                                list[8] = etc.get("qCnt").toString();
                                 data.add(list);
                             }
                         }
@@ -47,9 +46,6 @@ public class JsonMapperImpl implements JsonMapper {
                 }
             }
         }
-//        System.out.println(data.size());
-//        System.out.println(data);
         return data;
-//        return new ArrayList<>();
     }
 }

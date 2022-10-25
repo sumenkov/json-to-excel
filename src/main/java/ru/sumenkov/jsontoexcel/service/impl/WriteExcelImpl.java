@@ -10,7 +10,6 @@ import ru.sumenkov.jsontoexcel.service.WriteExcel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,14 +41,10 @@ public class WriteExcelImpl implements WriteExcel {
             Label label = new Label(i, 0, heads[i]);
             sheet.addCell(label);
         }
-        int num = 0;
         for (int j = 0; j < data.size(); j++) {
-            System.out.println(num++);
             String[] rowObjects = (String[]) data.get(j);
-            System.out.println(Arrays.toString(rowObjects));
             for (int k = 0; k < rowObjects.length; k++) {
                 String dataString = rowObjects[k] == null ? "" : rowObjects[k];
-                System.out.println(dataString);
                 // label: номер столбца, номер строки, содержимое
                 Label label = new Label(k, j + 1, dataString);
                 sheet.addCell(label);
@@ -58,7 +53,14 @@ public class WriteExcelImpl implements WriteExcel {
     }
 
     private String newFile(String file){
-        return  Path.of(file).getParent() + "\\" + fileName(file) + ".xls";
+        String newFile;
+        Path path = Path.of(file);
+        if(path.getParent() != null) {
+            newFile = path.getParent() + "\\" + fileName(file) + ".xls";
+        } else {
+            newFile = fileName(file) + ".xls";
+        }
+        return newFile;
     }
 
     private String fileName(String file) {
