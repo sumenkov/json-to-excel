@@ -11,7 +11,7 @@ public class LaunchOptions {
                 .longOpt("file")
                 .argName("file")
                 .hasArg(true)
-                .desc("Полный путь до файла.")
+                .desc("Путь до файла.")
                 .build());
 
         return options;

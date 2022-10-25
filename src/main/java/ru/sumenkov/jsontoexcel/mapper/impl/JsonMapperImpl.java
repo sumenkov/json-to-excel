@@ -2,7 +2,9 @@ package ru.sumenkov.jsontoexcel.mapper.impl;
 
 import org.json.JSONObject;
 import ru.sumenkov.jsontoexcel.mapper.JsonMapper;
+import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,8 +13,8 @@ import java.util.List;
 public class JsonMapperImpl implements JsonMapper {
 
     @Override
-    public List<Object> map(JSONObject object) {
-        List<Object> data = new ArrayList<>();
+    public List<DataModelForExcel> map(JSONObject object) {
+        List<DataModelForExcel> data = new ArrayList<>();
 
         for (String day: object.keySet()) {
             JSONObject allId = object.getJSONObject(day);
@@ -20,26 +22,29 @@ public class JsonMapperImpl implements JsonMapper {
                 JSONObject allTariff = allId.getJSONObject(id);
                 for(String tarif: allTariff.keySet()){
                     if (!tarif.equalsIgnoreCase("ptpName")){
-                        JSONObject allRoute = allTariff.getJSONObject(tarif);
-                        for (String route: allRoute.keySet()) {
-                            JSONObject allPrType = allRoute.getJSONObject(route);
+                        JSONObject allRouteNum = allTariff.getJSONObject(tarif);
+                        for (String routeNum: allRouteNum.keySet()) {
+                            JSONObject allPrType = allRouteNum.getJSONObject(routeNum);
                             for (String prType: allPrType.keySet()) {
                                 JSONObject etc = allPrType.getJSONObject(prType);
-                                String[] list = new String[9];
+                                DataModelForExcel dataRow = new DataModelForExcel();
                                 try {
-                                    list[0] = new SimpleDateFormat("dd.MM.yyyy").format(new SimpleDateFormat("yyyy-MM-dd").parse(day));
+                                    String date = new SimpleDateFormat("dd.MM.yyyy")
+                                            .format(new SimpleDateFormat("yyyy-MM-dd").parse(day));
+                                    dataRow.setDt1(date);
                                 } catch (ParseException e) {
                                     throw new RuntimeException(e);
                                 }
-                                list[1] = id;
-                                list[2] = allTariff.get("ptpName").toString();
-                                list[3] = tarif;
-                                list[4] = route;
-                                list[5] = prType;
-                                list[6] = etc.get("summ").toString();
-                                list[7] = etc.get("cnt").toString();
-                                list[8] = etc.get("qCnt").toString();
-                                data.add(list);
+                                dataRow.setPtpId(Integer.valueOf(id));
+                                dataRow.setPtpName(allTariff.get("ptpName").toString());
+                                dataRow.setTarif(Double.valueOf(tarif));
+                                dataRow.setRouteNum(routeNum);
+                                dataRow.setPrType(new DecimalFormat("00.00").format(Double.valueOf(prType)));
+                                dataRow.setSumm(Double.valueOf(etc.get("summ").toString()));
+                                dataRow.setCnt((Integer) etc.get("cnt"));
+                                dataRow.setQCnt((Integer) etc.get("qCnt"));
+
+                                data.add(dataRow);
                             }
                         }
                     }
