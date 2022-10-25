@@ -14,20 +14,6 @@ public class DataModelForExcel {
     public DataModelForExcel(){
     }
 
-    public DataModelForExcel(String dt1, Integer ptpId, String ptpName, Double tarif, String routeNum, String prType,
-                             Double summ, Integer cnt, Integer qCnt)
-    {
-        this.dt1 = dt1;
-        this.ptpId = ptpId;
-        this.ptpName = ptpName;
-        this.tarif = tarif;
-        this.routeNum = routeNum;
-        this.prType = prType;
-        this.summ = summ;
-        this.cnt = cnt;
-        this.qCnt = qCnt;
-    }
-
     public String getDt1() {
         return dt1;
     }
