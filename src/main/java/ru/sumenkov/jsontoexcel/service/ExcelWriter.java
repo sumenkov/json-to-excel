@@ -4,6 +4,6 @@ import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
 
 import java.util.List;
 
-public interface WriteExcel {
+public interface ExcelWriter {
     void write(String file, List<DataModelForExcel> data);
 }

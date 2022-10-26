@@ -5,6 +5,6 @@ import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
 
 import java.util.List;
 
-public interface JsonMapper {
+public interface JsonToExcelMapper {
     List<DataModelForExcel> map(JSONObject object);
 }

@@ -1,13 +1,13 @@
 package ru.sumenkov.jsontoexcel;
 
 import org.apache.commons.cli.*;
-import ru.sumenkov.jsontoexcel.mapper.JsonMapper;
-import ru.sumenkov.jsontoexcel.mapper.impl.JsonMapperImpl;
+import ru.sumenkov.jsontoexcel.mapper.JsonToExcelMapper;
+import ru.sumenkov.jsontoexcel.mapper.impl.JsonToExcelMapperImpl;
 import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
-import ru.sumenkov.jsontoexcel.repository.ReadJSON;
-import ru.sumenkov.jsontoexcel.repository.impl.ReadJSONImpl;
-import ru.sumenkov.jsontoexcel.service.WriteExcel;
-import ru.sumenkov.jsontoexcel.service.impl.WriteExcelXImpl;
+import ru.sumenkov.jsontoexcel.repository.JSONReader;
+import ru.sumenkov.jsontoexcel.repository.impl.JSONReaderImpl;
+import ru.sumenkov.jsontoexcel.service.ExcelWriter;
+import ru.sumenkov.jsontoexcel.service.impl.ExcelWriterImpl;
 
 import java.util.List;
 
@@ -17,20 +17,22 @@ public class Main {
         Options options = new LaunchOptions().launchOptions();
         CommandLine commandLine = commandLineParser.parse(options, args);
 
-        if (commandLine.hasOption("file")) {
-            String file = commandLine.getOptionValue("file");
+        for (Option option: options.getOptions()) {
+            if (commandLine.hasOption(option)) {
+                String file = commandLine.getOptionValue(option);
 
-            ReadJSON readerJSON = new ReadJSONImpl();
-            JsonMapper jsonMapper = new JsonMapperImpl();
+                JSONReader readerJSON = new JSONReaderImpl();
+                JsonToExcelMapper jsonMapper = new JsonToExcelMapperImpl();
 
-            List<DataModelForExcel> data = jsonMapper.map(readerJSON.read(file));
+                List<DataModelForExcel> data = jsonMapper.map(readerJSON.read(file));
 
-            WriteExcel writeExcel = new WriteExcelXImpl();
-            writeExcel.write(file, data);
+                ExcelWriter writeExcel = new ExcelWriterImpl();
+                writeExcel.write(file, data);
 
-        } else {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("json-to-excel", options, true);
+            } else {
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("json-to-excel", options, true);
+            }
         }
     }
 }

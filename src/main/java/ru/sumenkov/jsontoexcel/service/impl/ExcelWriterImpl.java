@@ -1,9 +1,8 @@
 package ru.sumenkov.jsontoexcel.service.impl;
 
 import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
-import ru.sumenkov.jsontoexcel.service.WriteExcel;
+import ru.sumenkov.jsontoexcel.service.ExcelWriter;
 
-import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -20,9 +19,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WriteExcelXImpl implements WriteExcel {
+public class ExcelWriterImpl implements ExcelWriter {
 
-    private static final Logger log = Logger.getLogger(WriteExcelXImpl.class.getName());
+    private static final Logger log = Logger.getLogger(ExcelWriterImpl.class.getName());
     private static final int SLASH_CHARACTER = 92;     // char: 92 - равно знаку '/'
     @Override
     public void write(String file, List<DataModelForExcel> data) {
@@ -63,14 +62,6 @@ public class WriteExcelXImpl implements WriteExcel {
         CellStyle headerCellStyle = workbook.createCellStyle();
         headerCellStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.index);
         headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        headerCellStyle.setBorderTop(BorderStyle.THIN);
-        headerCellStyle.setTopBorderColor(IndexedColors.BLACK.index);
-        headerCellStyle.setBorderRight(BorderStyle.THIN);
-        headerCellStyle.setRightBorderColor(IndexedColors.BLACK.index);
-        headerCellStyle.setBorderBottom(BorderStyle.THIN);
-        headerCellStyle.setBottomBorderColor(IndexedColors.BLACK.index);
-        headerCellStyle.setBorderLeft(BorderStyle.THIN);
-        headerCellStyle.setLeftBorderColor(IndexedColors.BLACK.index);
 
         for(int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);

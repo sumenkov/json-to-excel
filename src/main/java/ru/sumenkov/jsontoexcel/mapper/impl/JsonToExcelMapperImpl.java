@@ -1,7 +1,7 @@
 package ru.sumenkov.jsontoexcel.mapper.impl;
 
 import org.json.JSONObject;
-import ru.sumenkov.jsontoexcel.mapper.JsonMapper;
+import ru.sumenkov.jsontoexcel.mapper.JsonToExcelMapper;
 import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
 
 import java.text.DecimalFormat;
@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonMapperImpl implements JsonMapper {
+public class JsonToExcelMapperImpl implements JsonToExcelMapper {
 
     @Override
     public List<DataModelForExcel> map(JSONObject object) {
