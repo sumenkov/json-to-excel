@@ -14,6 +14,18 @@ public class DataModelForExcel {
     public DataModelForExcel(){
     }
 
+    public DataModelForExcel(DataModelForExcel data) {
+        this.dt1 = data.getDt1();
+        this.ptpId = data.getPtpId();
+        this.ptpName = data.getPtpName();
+        this.tarif = data.getTarif();
+        this.routeNum = data.getRouteNum();
+        this.prType = data.getPrType();
+        this.summ = data.getSumm();
+        this.cnt = data.getCnt();
+        this.qCnt = data.getQCnt();
+    }
+
     public String getDt1() {
         return dt1;
     }

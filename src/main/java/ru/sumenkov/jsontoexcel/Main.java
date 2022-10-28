@@ -1,8 +1,8 @@
 package ru.sumenkov.jsontoexcel;
 
 import org.apache.commons.cli.*;
-import ru.sumenkov.jsontoexcel.mapper.JsonToExcelMapper;
-import ru.sumenkov.jsontoexcel.mapper.impl.JsonToExcelMapperImpl;
+import ru.sumenkov.jsontoexcel.mapper.ExcelMapper;
+import ru.sumenkov.jsontoexcel.mapper.impl.ExcelMapperImpl;
 import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
 import ru.sumenkov.jsontoexcel.repository.JSONReader;
 import ru.sumenkov.jsontoexcel.repository.impl.JSONReaderImpl;
@@ -22,7 +22,7 @@ public class Main {
                 String file = commandLine.getOptionValue(option);
 
                 JSONReader readerJSON = new JSONReaderImpl();
-                JsonToExcelMapper jsonMapper = new JsonToExcelMapperImpl();
+                ExcelMapper jsonMapper = new ExcelMapperImpl();
 
                 List<DataModelForExcel> data = jsonMapper.map(readerJSON.read(file));
 
