@@ -22,9 +22,9 @@ public class Main {
                 String file = commandLine.getOptionValue(option);
 
                 JSONReader readerJSON = new JSONReaderImpl();
-                ExcelMapper jsonMapper = new ExcelMapperImpl();
+                ExcelMapper excelMapper = new ExcelMapperImpl();
 
-                List<DataModelForExcel> data = jsonMapper.map(readerJSON.read(file));
+                List<DataModelForExcel> data = excelMapper.map(readerJSON.read(file));
 
                 ExcelWriter writeExcel = new ExcelWriterImpl();
                 writeExcel.write(file, data);
