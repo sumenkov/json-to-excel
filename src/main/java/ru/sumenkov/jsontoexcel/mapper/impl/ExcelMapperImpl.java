@@ -57,12 +57,15 @@ public class ExcelMapperImpl implements ExcelMapper {
     private void getPrType(JSONObject routeNum) {
         for (String prType: routeNum.keySet()) {
             dataRow.setPrType(new DecimalFormat("00.00").format(Double.valueOf(prType)));
-            JSONObject etc = routeNum.getJSONObject(prType);
-            dataRow.setSumm(Double.valueOf(etc.get("summ").toString()));
-            dataRow.setCnt((Integer) etc.get("cnt"));
-            dataRow.setQCnt((Integer) etc.get("qCnt"));
-
-            data.add(new DataModelForExcel(dataRow));
+            getSCQ(routeNum.getJSONObject(prType));
         }
+    }
+
+    private void getSCQ(JSONObject scq) {
+        dataRow.setSumm(Double.valueOf(scq.get("summ").toString()));
+        dataRow.setCnt((Integer) scq.get("cnt"));
+        dataRow.setQCnt((Integer) scq.get("qCnt"));
+
+        data.add(new DataModelForExcel(dataRow));
     }
 }
