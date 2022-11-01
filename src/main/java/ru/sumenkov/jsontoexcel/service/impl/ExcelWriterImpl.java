@@ -31,7 +31,7 @@ public class ExcelWriterImpl implements ExcelWriter {
             Sheet sheet = workbook.createSheet(fileName(file));
 
             // Create header row
-            String[] headers = new String[]{"DT1", "PTP_ID", "PTP_NAME","TARIF", "ROUTE_NUM", "PRTYPE", "SUMM", "CNT", "QCNT"};
+            String[] headers = new String[]{"DT", "PTP_ID", "PTP_NAME","TARIF", "ROUTE_NUM", "PRTYPE", "SUMM", "CNT", "QCNT"};
             createHeaderRow(workbook, sheet, headers);
 
             // Create rows
