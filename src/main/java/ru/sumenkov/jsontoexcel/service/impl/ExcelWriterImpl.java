@@ -74,7 +74,7 @@ public class ExcelWriterImpl implements ExcelWriter {
         Row row = sheet.createRow(rowIndex);
 
         Cell cell = row.createCell(0);
-        cell.setCellValue(dataRow.getDt1());
+        cell.setCellValue(dataRow.getDt());
 
         cell = row.createCell(1);
         cell.setCellValue(dataRow.getPtpId());
