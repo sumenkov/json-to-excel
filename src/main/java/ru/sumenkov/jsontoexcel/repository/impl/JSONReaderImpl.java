@@ -13,13 +13,14 @@ public class JSONReaderImpl implements JSONReader {
     private static final Logger log = Logger.getLogger(JSONReaderImpl.class.getName());
 
     public JSONObject read(String file) {
+        JSONTokener tokener = null;
         try {
-            JSONTokener tokener;
             tokener = new JSONTokener(new FileReader(file));
-            return new JSONObject(tokener);
         } catch (FileNotFoundException e) {
-            log.log(Level.SEVERE, "File not found", e);
+            log.log(Level.SEVERE, "Файл не найден", e);
+            System.exit(0);
         }
-       return new JSONObject();
+//        assert tokener != null;
+        return new JSONObject(tokener);
     }
 }

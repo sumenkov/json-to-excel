@@ -27,32 +27,28 @@ public class ExcelWriterImpl implements ExcelWriter {
     private static final char REVERSE_SLANT = 92;    // char: 92 - равно знаку '\', Reverse slant (Backslash)
     @Override
     public void write(String file, List<DataModelForExcel> data) {
-        // create a new Workbook
         try (Workbook workbook = new XSSFWorkbook()) {
-            // Create a new Sheet
             Sheet sheet = workbook.createSheet(fileName(file));
 
-            // Create header row
+            // Создать строку заголовков
             String[] headers = new String[]{"DT", "PTP_ID", "PTP_NAME","TARIF", "ROUTE_NUM", "PRTYPE", "SUMM", "CNT", "QCNT"};
             createHeaderRow(workbook, sheet, headers);
 
-            // Create rows
             for(int i = 0; i < data.size(); i++) {
-                // row index equals i + 1 because the first row of Excel file is the header row.
+                // индекс строки равен i + 1, потому что первая строка файла Excel является строкой заголовка
                 int rowIndex = i + 1;
                 createNewRow(sheet, rowIndex, data.get(i));
             }
 
-            // Adjusts 3 columns to set the width to fit the contents.
+            // Выравниваем ширину столбцов в соответствии с содержимым
             for (int i = 0; i < headers.length; i++) {
                 sheet.autoSizeColumn(i);
             }
 
-            // Write to file
             workbook.write(new FileOutputStream(newFile(file)));
 
         } catch (IOException e) {
-            log.log(Level.SEVERE, "Fail create Excel file", e);
+            log.log(Level.SEVERE, "Не удалось создать файл Excel", e);
         }
     }
     private String fileName(String file) {

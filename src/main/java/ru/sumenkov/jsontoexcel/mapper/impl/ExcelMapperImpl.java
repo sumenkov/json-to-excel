@@ -5,8 +5,8 @@ import ru.sumenkov.jsontoexcel.mapper.ExcelMapper;
 import ru.sumenkov.jsontoexcel.model.DataModelForExcel;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +17,11 @@ public class ExcelMapperImpl implements ExcelMapper {
     @Override
     public List<DataModelForExcel> map(JSONObject object) {
         for (String day : object.keySet()) {
-            try {
-                String date = new SimpleDateFormat("dd.MM.yyyy")
-                        .format(new SimpleDateFormat("yyyy-MM-dd").parse(day));
-                dataRow.setDt(date);
-            } catch (ParseException e) { throw new RuntimeException(e); }
-
+            String date = LocalDate.parse(day).format(
+                    DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            dataRow.setDt(date);
             getId(object.getJSONObject(day));
         }
-
         return data;
     }
 
