@@ -1,7 +1,7 @@
 package ru.sumenkov.jsontoexcel.model;
 
 public class DataModelForExcel {
-    private String dt1;
+    private String dt;
     private Integer ptpId;
     private String ptpName;
     private Double tarif;
@@ -15,7 +15,7 @@ public class DataModelForExcel {
     }
 
     public DataModelForExcel(DataModelForExcel data) {
-        this.dt1 = data.getDt1();
+        this.dt = data.getDt();
         this.ptpId = data.getPtpId();
         this.ptpName = data.getPtpName();
         this.tarif = data.getTarif();
@@ -26,12 +26,12 @@ public class DataModelForExcel {
         this.qCnt = data.getQCnt();
     }
 
-    public String getDt1() {
-        return dt1;
+    public String getDt() {
+        return dt;
     }
 
-    public void setDt1(String dt1) {
-        this.dt1 = dt1;
+    public void setDt(String dt) {
+        this.dt = dt;
     }
 
     public Integer getPtpId() {

@@ -20,7 +20,7 @@ public class ExcelMapperImpl implements ExcelMapper {
             try {
                 String date = new SimpleDateFormat("dd.MM.yyyy")
                         .format(new SimpleDateFormat("yyyy-MM-dd").parse(day));
-                dataRow.setDt1(date);
+                dataRow.setDt(date);
             } catch (ParseException e) { throw new RuntimeException(e); }
 
             getId(object.getJSONObject(day));

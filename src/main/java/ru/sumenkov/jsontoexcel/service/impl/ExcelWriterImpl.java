@@ -33,7 +33,7 @@ public class ExcelWriterImpl implements ExcelWriter {
             Sheet sheet = workbook.createSheet(fileName(file));
 
             // Create header row
-            String[] headers = new String[]{"DT1", "PTP_ID", "PTP_NAME","TARIF", "ROUTE_NUM", "PRTYPE", "SUMM", "CNT", "QCNT"};
+            String[] headers = new String[]{"DT", "PTP_ID", "PTP_NAME","TARIF", "ROUTE_NUM", "PRTYPE", "SUMM", "CNT", "QCNT"};
             createHeaderRow(workbook, sheet, headers);
 
             // Create rows
@@ -77,7 +77,7 @@ public class ExcelWriterImpl implements ExcelWriter {
         Row row = sheet.createRow(rowIndex);
 
         Cell cell = row.createCell(0);
-        cell.setCellValue(dataRow.getDt1());
+        cell.setCellValue(dataRow.getDt());
 
         cell = row.createCell(1);
         cell.setCellValue(dataRow.getPtpId());
