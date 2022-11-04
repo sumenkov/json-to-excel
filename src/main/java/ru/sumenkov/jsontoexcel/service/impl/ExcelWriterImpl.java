@@ -22,7 +22,9 @@ import java.util.logging.Logger;
 public class ExcelWriterImpl implements ExcelWriter {
 
     private static final Logger log = Logger.getLogger(ExcelWriterImpl.class.getName());
-    private static final int SLASH_CHARACTER = 92;     // char: 92 - равно знаку '/'
+
+    private static final char SLANT = 47;            // char: 47 - знак '/', Slant (forward slash, divide)
+    private static final char REVERSE_SLANT = 92;    // char: 92 - равно знаку '\', Reverse slant (Backslash)
     @Override
     public void write(String file, List<DataModelForExcel> data) {
         // create a new Workbook
@@ -54,7 +56,8 @@ public class ExcelWriterImpl implements ExcelWriter {
         }
     }
     private String fileName(String file) {
-        return file.substring(file.lastIndexOf(SLASH_CHARACTER) + 1, file.lastIndexOf("."));
+        int indexSlant = file.lastIndexOf(SLANT) >= 0 ? file.lastIndexOf(SLANT) + 1: file.lastIndexOf(REVERSE_SLANT) + 1;
+        return file.substring(indexSlant, file.lastIndexOf("."));
     }
 
     private void createHeaderRow(Workbook workbook, Sheet sheet, String[] headers) {
@@ -105,7 +108,8 @@ public class ExcelWriterImpl implements ExcelWriter {
         String newFile;
         Path path = Path.of(file);
         if(path.getParent() != null) {
-            newFile = path.getParent() + "\\" + fileName(file) + ".xlsx";
+            char slant = file.lastIndexOf(SLANT) >= 0 ? SLANT: REVERSE_SLANT;
+            newFile = String.format("%s%s%s.xlsx", path.getParent(), slant, fileName(file));
         } else {
             newFile = fileName(file) + ".xlsx";
         }
